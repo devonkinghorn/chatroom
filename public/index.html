@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link rel="stylesheet" type="text/css" href="main.css">
+
+<head>
+  <title>Angular Chat</title>
+</head>
+
+<body>
+  <div id="app" ng-app="myApp" ng-controller="myCtrl">
+
+
+    <ul id='messages'>
+      <div  ng-repeat="msg in messages track by $index">
+        <li>{{msg}}
+      </div>
+    </ul>
+    <form action="" ng-submit="sendMessage($event)">
+      <input id="m" autocomplete="off" ng-model="messageInput"/><button>Send</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+      
+      var app = angular.module('myApp', []);
+      app.controller('myCtrl', 
+      function($scope, $window, $http) {
+        var socket = io();
+        $scope.messages = [];
+        $scope.sendMessage = function(e){
+          e.preventDefault();
+          console.log(e);
+          socket.emit('chat message', $scope.messageInput);
+          $scope.messageInput = '';
+        }
+        // $('form').submit(function(){
+        //   socket.emit('chat message', $('#m').val());
+        //   // $('#m').val('');
+        //   return false;
+        // });
+        socket.on('chat message', function(msg){
+          $scope.$apply(function(){
+            var temp = $scope.messages;
+            temp.push(msg)
+            $scope.messages = temp;
+            console.log($scope.messages);
+          })
+        });
+        
+      })
+      
+    </script>
+</body>
+
+</html>

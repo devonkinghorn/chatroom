@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/devonkinghorn/chatroom/issues"
   },
-  "homepage": "https://github.com/devonkinghorn/chatroom#readme"
+  "homepage": "https://github.com/devonkinghorn/chatroom#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "http": "0.0.0",
+    "socket.io": "^1.4.8"
+  }
 }
