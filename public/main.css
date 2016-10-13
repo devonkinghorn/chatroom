@@ -9,3 +9,9 @@
  list-style-type: none; padding: 15px; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+
+      .userInfo {
+            width: 49%;
+            margin-top: 10px;
+      }
+
