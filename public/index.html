@@ -13,11 +13,13 @@
 
     <ul id='messages'>
       <div  ng-repeat="msg in messages track by $index">
-        <li>{{msg}}
+        <li>{{msg.text}} {{msg.user}}
       </div>
     </ul>
     <form action="" ng-submit="sendMessage($event)">
-      <input id="m" autocomplete="off" ng-model="messageInput"/><button>Send</button>
+      <input id="m" autocomplete="off" ng-model="messageInput" placeholder="Message"/><button>Send</button>
+      <input class="userInfo" ng-model="user" placeholder="Username"/>
+      <input class="userInfo" ng-model="avatar" placeholder="Avatar"/>
     </form>
   </div>
 
@@ -29,11 +31,20 @@
       app.controller('myCtrl', 
       function($scope, $window, $http) {
         var socket = io();
-        $scope.messages = [];
+        $scope.messages = [{
+          text: `this is a chatroom. Enter whatever you like`,
+          user: `Tutorial`
+        }];
+        $scope.user = '';
+        $scope.avatar = '';
         $scope.sendMessage = function(e){
           e.preventDefault();
           console.log(e);
-          socket.emit('chat message', $scope.messageInput);
+          socket.emit('chat message', {
+            text:$scope.messageInput,
+            user: $scope.user,
+            avatar: $scope.avatar
+          });
           $scope.messageInput = '';
         }
         // $('form').submit(function(){
