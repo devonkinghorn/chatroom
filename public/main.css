@@ -13,7 +13,9 @@
     width: 50%;
        -webkit-appearance: menulist-button;
     height: 600px;
-    border: 3px solid green;
+    overflow-y: scroll;
+    border: 5px ridge green;
+    background-color: white;
  list-style-type: none; padding: 15px; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
