@@ -1,10 +1,18 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
+      body { 
+            font: 13px Helvetica, Arial;  
+            background-image: url("http://www.walldevil.com/wallpapers/a50/nature-nice-background-wallpapers.jpg");
+}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      form button { width: 9%;
+                    background: rgb(130, 224, 255);
+                   opacity: 0.5;
+                   border: none; padding: 10px; }
       #messages { margin: auto;
     width: 50%;
+       -webkit-appearance: menulist-button;
+    height: 600px;
     border: 3px solid green;
  list-style-type: none; padding: 15px; }
       #messages li { padding: 5px 10px; }
@@ -14,4 +22,14 @@
             width: 49%;
             margin-top: 10px;
       }
+      .messageTxt
+      {
+        color:  #008080;
+	width: 79%;
+      }
 
+      .messageUser
+      {
+	floatn: right;
+	width: 10%;
+      } 
