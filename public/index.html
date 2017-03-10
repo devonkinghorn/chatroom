@@ -1,70 +1,49 @@
- <!doctype html>
+<!doctype html>
 <html>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <link rel="stylesheet" type="text/css" href="main.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <head>
-  <title>Angular Chat</title>
+  <title>RPC</title>
 </head>
 
 <body>
   <div id="app" ng-app="myApp" ng-controller="myCtrl">
 
-<h1><strong>Group Chat</strong></h1>
-    <ul id='messages'>
-      <div  ng-repeat="msg in messages track by $index">
-        <li><div class="messageTxt" >{{msg.text}}</div> <div class="messageUser"> {{msg.user||"anonymous"}}</div></li>
+    <h1><strong>Rock Paper Scissors</strong></h1>
+    <div ng-if="login">
+      <input type="text" ng-model="username" placeholder='username'/>
+      <button ng-click="check(username)">Submit!</button>
+    </div>
+    <div ng-if="!login">
+      Welcome {{username}}
+      <div ng-if="search == true">
+        Invite an opponent to play
+        <div ng-repeat="user in currentUsers track by $index">
+          <div><button ng-click="play(user)">{{user.button}}</button> {{user.name}}</div>
+        </div>
       </div>
-    </ul>
-    <form action="" ng-submit="sendMessage($event)">
-      <input id="m" autocomplete="off" ng-model="messageInput" placeholder="Message"/><button>Send</button>
-      <input class="userInfo" ng-model="user" placeholder="Username"/>
-     <!-- <input class="userInfo" ng-model="avatar" placeholder="Avatar"/>-->
-    </form>
+      <div ng-if="search == false">
+        <button ng-click='back()'>Back</button>
+        You Are Playing {{game.game[game.opponent]}}<br>
+        <button ng-click='throw("rock")'>Rock</button><br>
+        <button ng-click='throw("paper")'>Paper</button><br>
+        <button ng-click='throw("scissors")'>Scissors</button><br>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-  <script>
-      
-      var app = angular.module('myApp', []);
-      app.controller('myCtrl', 
-      function($scope, $window, $http) {
-        var socket = io();
-        $scope.messages = [{
-          text: `This is a chatroom. Enter whatever you like`,
-          user: `Tutorial`
-        }];
-        $scope.user = '';
-       //$scope.avatar = '';
-        $scope.sendMessage = function(e){
-          e.preventDefault();
-          console.log(e);
-	  if(!$scope.messageInput) return;
-          socket.emit('chat message', {
-            text:$scope.messageInput,
-            user: $scope.user,
-         //   avatar: $scope.avatar
-          });
-          $scope.messageInput = '';
-        }
-        // $('form').submit(function(){
-        //   socket.emit('chat message', $('#m').val());
-        //   // $('#m').val('');
-        //   return false;
-        // });
-        socket.on('chat message', function(msg){
-          $scope.$apply(function(){
-            var temp = $scope.messages;
-            temp.push(msg)
-            $scope.messages = temp;
-            console.log($scope.messages);
-          })
-        });
-        
-      })
-      
-    </script>
+  <script src='index.js'>
+  </script>
 </body>
 
 </html>

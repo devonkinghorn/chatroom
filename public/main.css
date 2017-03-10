@@ -1,4 +1,4 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/** { margin: 0; padding: 0; box-sizing: border-box; }
       body { 
             font: 13px Helvetica, Arial;  
             background-image: url("http://www.walldevil.com/wallpapers/a50/nature-nice-background-wallpapers.jpg");
@@ -34,4 +34,4 @@
       {
 	floatn: right;
 	width: 10%;
-      } 
+      } */
