@@ -87,15 +87,17 @@ var app = angular.module('myApp', []);
           $scope.$apply(function () {
             var player = msg.player;
             var opponent = msg.opponent;
-            var playerThrow = possibleThrows[msg.game.throws[player].slice(-1)[0]];
-            var opponentThrow = possibleThrows[msg.game.throws[opponent].slice(-1)[0]];
+            var playerThrowName = msg.game.throws[player].slice(-1)[0];
+            var playerThrow = possibleThrows[playerThrowName];
+            var opponentThrowName = msg.game.throws[opponent].slice(-1)[0];
+            var opponentThrow = possibleThrows[opponentThrowName];
             if(playerThrow == opponentThrow) {
-              $scope.results = 'It was a Tie'
+              $scope.results = `It was a Tie, you both threw ${playerThrowName}`
             } else if((playerThrow + 1)%3 == opponentThrow) {
-              $scope.results = 'You Lost last round'
+              $scope.results = `You Lost last round you threw ${playerThrowName} they threw ${opponentThrowName}`
               $scope.score[1]++;
             } else {
-              $scope.results = 'You Won last round'
+              $scope.results = `You Won last round you threw ${playerThrowName} they threw ${opponentThrowName}`
               $scope.score[0]++;
             }
 
