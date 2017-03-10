@@ -73,11 +73,32 @@ var app = angular.module('myApp', []);
             if ($scope.search) {
               $scope.search = false;
               $scope.game = msg
+              $scope.results = "Play first round"
+              $scope.score = [0,0]
             }
           })
         })
+        var possibleThrows = {
+          "rock":0,
+          "paper":1,
+          "scissors":2
+        }
         socket.on('nextRound', function(msg){
           $scope.$apply(function () {
+            var player = msg.player;
+            var opponent = msg.opponent;
+            var playerThrow = possibleThrows[msg.game.throws[player].slice(-1)[0]];
+            var opponentThrow = possibleThrows[msg.game.throws[opponent].slice(-1)[0]];
+            if(playerThrow == opponentThrow) {
+              $scope.results = 'It was a Tie'
+            } else if((playerThrow + 1)%3 == opponentThrow) {
+              $scope.results = 'You Lost last round'
+              $scope.score[1]++;
+            } else {
+              $scope.results = 'You Won last round'
+              $scope.score[0]++;
+            }
+
             debugger;
             console.log(msg)
           })
