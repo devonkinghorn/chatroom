@@ -45,7 +45,7 @@ var app = angular.module('myApp', []);
         $scope.throw = (_throw) => {
           socket.emit('throw',{throw: _throw, game: $scope.game})
         }
-        var invitations = {};
+        var invitations = {"rps bot":true};
         socket.on('updateplayers', function (msg) {
           $scope.$apply(function () {
             $scope.currentUsers = msg.map(function (player) {
